@@ -1,21 +1,11 @@
 use axum::http::StatusCode;
 use axum::{routing::get, Extension, Json, Router};
 use dotenvy::dotenv;
-use serde::{Deserialize, Serialize};
 use sqlx::postgres::PgPoolOptions;
 use std::{env, net::SocketAddr};
 
-#[derive(Serialize)]
-struct Todo {
-    id: i32,
-    title: String,
-    done: bool,
-}
-
-#[derive(Deserialize)]
-struct NewTodo {
-    title: String,
-}
+mod models;
+use models::{NewTodo, Todo};
 
 async fn list_todos(Extension(pool): Extension<sqlx::PgPool>) -> Json<Vec<Todo>> {
     let todos = sqlx::query_as!(
