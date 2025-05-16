@@ -11,3 +11,8 @@ pub struct Todo {
 pub struct NewTodo {
     pub title: String,
 }
+
+#[derive(Deserialize)]
+pub struct UpdateTodo {
+    pub done: bool,
+}
