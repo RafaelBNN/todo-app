@@ -1,11 +1,10 @@
-use axum::{routing::get, Extension, Router};
 use dotenvy::dotenv;
 use sqlx::postgres::PgPoolOptions;
 use std::{env, net::SocketAddr};
 
 mod models;
 mod handlers;
-use handlers::{create_todo, list_todos};
+mod routes;
 
 #[tokio::main]
 async fn main() -> Result<(), sqlx::Error> {
@@ -18,9 +17,7 @@ async fn main() -> Result<(), sqlx::Error> {
         .connect(&database_url)
         .await?;
 
-    let app = Router::new()
-        .route("/todos", get(list_todos).post(create_todo))
-        .layer(Extension(pool));
+    let app = routes::create_routes(pool);
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 3001));
     println!("Servidor rodando em http://{}", addr);
