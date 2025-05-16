@@ -1,9 +1,9 @@
-use axum::{Router, routing::get, Json, Extension};
 use axum::http::StatusCode;
-use serde::{Serialize, Deserialize};
+use axum::{routing::get, Extension, Json, Router};
+use dotenvy::dotenv;
+use serde::{Deserialize, Serialize};
 use sqlx::postgres::PgPoolOptions;
 use std::{env, net::SocketAddr};
-use dotenvy::dotenv;
 
 #[derive(Serialize)]
 struct Todo {
@@ -51,7 +51,10 @@ async fn create_todo(
     .await
     .map_err(|err| {
         eprintln!("Erro ao criar tarefa: {}", err);
-        (StatusCode::INTERNAL_SERVER_ERROR, "Erro ao criar tarefa".to_string())
+        (
+            StatusCode::INTERNAL_SERVER_ERROR,
+            "Erro ao criar tarefa".to_string(),
+        )
     })?;
 
     Ok((StatusCode::CREATED, Json(rec)))
@@ -61,8 +64,7 @@ async fn create_todo(
 async fn main() -> Result<(), sqlx::Error> {
     dotenv().ok();
 
-    let database_url = env::var("DATABASE_URL")
-        .expect("DATABASE_URL não definida no .env");
+    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL não definida no .env");
 
     let pool = PgPoolOptions::new()
         .max_connections(5)
