@@ -1,10 +1,10 @@
 use dotenvy::dotenv;
-use sqlx::postgres::PgPoolOptions;
 use std::{env, net::SocketAddr};
 
 mod models;
 mod handlers;
 mod routes;
+mod db;
 
 #[tokio::main]
 async fn main() -> Result<(), sqlx::Error> {
@@ -12,10 +12,7 @@ async fn main() -> Result<(), sqlx::Error> {
 
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL não definida no .env");
 
-    let pool = PgPoolOptions::new()
-        .max_connections(5)
-        .connect(&database_url)
-        .await?;
+    let pool = db::init_pool(&database_url).await.expect("Erro ao conectar ao banco de dados");
 
     let app = routes::create_routes(pool);
 
