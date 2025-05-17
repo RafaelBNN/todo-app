@@ -46,6 +46,28 @@ export default function Home() {
     }
   };
 
+  const handleToggleDone = async (id: number, currentDone: boolean) => {
+    try {
+      const res = await fetch(`http://localhost:3001/todos/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ done: !currentDone }),
+      });
+  
+      if (!res.ok) throw new Error('Erro ao atualizar status');
+  
+      const updated = await res.json();
+  
+      setTodos(prev =>
+        prev.map(todo =>
+          todo.id === id ? updated : todo
+        )
+      );
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <main style={{
       display: 'flex',
@@ -112,7 +134,11 @@ export default function Home() {
               }}>
                 {todo.title}
               </span>
-              <span style={{ fontSize: '1.2rem' }}>
+              <span
+                style={{ fontSize: '1.2rem', cursor: 'pointer' }}
+                onClick={() => handleToggleDone(todo.id, todo.done)}
+                title="Alternar status"
+              >
                 {todo.done ? '✅' : '🕓'}
               </span>
             </li>
