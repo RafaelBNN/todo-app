@@ -68,6 +68,20 @@ export default function Home() {
     }
   };
 
+  const handleDeleteTodo = async (id: number) => {
+    try {
+      const res = await fetch(`http://localhost:3001/todos/${id}`, {
+        method: 'DELETE',
+      });
+  
+      if (!res.ok) throw new Error('Erro ao deletar');
+  
+      setTodos(prev => prev.filter(todo => todo.id !== id));
+    } catch (err) {
+      console.error('Erro ao deletar tarefa:', err);
+    }
+  };
+
   return (
     <main style={{
       display: 'flex',
@@ -128,12 +142,14 @@ export default function Home() {
                 justifyContent: 'space-between',
               }}
             >
-              <span style={{
-                textDecoration: todo.done ? 'line-through' : 'none',
-                color: todo.done ? '#dbdbdb' : '#f9f9f9',
-              }}>
-                {todo.title}
-              </span>
+            <span style={{
+              textDecoration: todo.done ? 'line-through' : 'none',
+              color: todo.done ? '#dbdbdb' : '#f9f9f9',
+            }}>
+              {todo.title}
+            </span>
+          
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
               <span
                 style={{ fontSize: '1.2rem', cursor: 'pointer' }}
                 onClick={() => handleToggleDone(todo.id, todo.done)}
@@ -141,6 +157,21 @@ export default function Home() {
               >
                 {todo.done ? '✅' : '🕓'}
               </span>
+          
+              <button
+                onClick={() => handleDeleteTodo(todo.id)}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  color: '#fff',
+                  fontSize: '1.2rem',
+                  cursor: 'pointer',
+                }}
+                title="Remover tarefa"
+              >
+                🗑️
+              </button>
+            </div>
             </li>
           ))}
         </ul>
