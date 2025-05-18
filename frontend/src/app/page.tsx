@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { FaCheckCircle, FaCircle, FaClock, FaTrash } from 'react-icons/fa';
 
 type Todo = {
   id: number;
@@ -134,7 +135,7 @@ export default function Home() {
                 key={todo.id}
                 style={{
                   backgroundColor: '#32a866',
-                  padding: '1rem',
+                  padding: '0.8rem',
                   marginBottom: '1rem',
                   borderRadius: '8px',
                   boxShadow: '0 10px 10px rgb(48, 66, 50)',
@@ -143,35 +144,30 @@ export default function Home() {
                   justifyContent: 'space-between',
                 }}
               >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <span
+                onClick={() => handleToggleDone(todo.id, todo.done)}
+                style={{ cursor: 'pointer', fontSize: '1.2rem'}}
+                title="Alternar status"
+              >
+                {todo.done ? <FaCheckCircle /> : <FaCircle />}
+              </span>
               <span style={{
                 textDecoration: todo.done ? 'line-through' : 'none',
                 color: todo.done ? '#dbdbdb' : '#f9f9f9',
               }}>
                 {todo.title}
               </span>
+              </div>
             
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <span
-                  style={{ fontSize: '1.2rem', cursor: 'pointer' }}
-                  onClick={() => handleToggleDone(todo.id, todo.done)}
-                  title="Alternar status"
-                >
-                  {todo.done ? '✅' : '🕓'}
-                </span>
-            
-                <button
                   onClick={() => handleDeleteTodo(todo.id)}
-                  style={{
-                    background: 'transparent',
-                    border: 'none',
-                    color: '#fff',
-                    fontSize: '1.2rem',
-                    cursor: 'pointer',
-                  }}
+                  style={{ cursor: 'pointer', fontSize: '1.2rem', marginLeft: '1rem' }}
                   title="Remover tarefa"
                 >
-                  🗑️
-                </button>
+                  <FaTrash />
+                </span>
               </div>
               </li>
             ))}
