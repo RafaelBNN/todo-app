@@ -4,6 +4,8 @@ Este projeto faz parte do processo seletivo para o Rei do Pitaco. Trata-se de um
 
 # Como Rodar
 
+[Vídeo demonstração](https://youtu.be/5J1gdAmI080)
+
 ## Configuração do ambiente
 
 ### Pré-requisitos
@@ -121,3 +123,6 @@ Usei o ChatGPT também pra eventuais erros de instalação, compilação, etc.
 Com mais tempo, eu buscaria outros projetos em cada uma dessas linguagens para saber como eles são estruturados (arquivos, diretórios, arquitetura no geral).
 
 Também acredito que poderia entender mais o porquê de cada função ou variável. Ou estudar mais Rust, que foi uma linguagem nova para mim.
+
+Refatorar o código do frontend também seria uma tarefa importante com o
+objetivo de deixar mais clara a função de cada parte do código.
