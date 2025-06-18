@@ -1,6 +1,6 @@
 backend*/target/*
 backend*/Cargo.lock
-backend*/.env
+*\.env
 frontend/node_modules/*
 node_modules/*
 backend*/venv
