@@ -1,6 +1,6 @@
 # Descrição
 
-Este projeto faz parte do processo seletivo para o Rei do Pitaco. Trata-se de uma aplicação simples de lista de tarefas para organização pessoal.
+Este projeto inicialmente fazia parte de um processo seletivo, mas decidi continuar usando para praticar desenvolvimento back e front. Trata-se de uma aplicação simples de lista de tarefas para organização pessoal.
 
 # Como Rodar
 
