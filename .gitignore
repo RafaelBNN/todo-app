@@ -3,3 +3,4 @@ backend/Cargo.lock
 backend/.env
 frontend/node_modules/*
 node_modules/*
+backend/venv
