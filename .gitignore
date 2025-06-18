@@ -4,3 +4,4 @@ backend*/Cargo.lock
 frontend/node_modules/*
 node_modules/*
 backend*/venv
+*__pycache__
